@@ -117,24 +117,6 @@ a { text-decoration: none; color: inherit; }
 ::-webkit-scrollbar-track { background: var(--bg2); }
 ::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 10px; }
 
-/* ===== CURSOR ===== */
-.cursor {
-  width: 12px; height: 12px;
-  background: var(--accent);
-  border-radius: 50%;
-  position: fixed; pointer-events: none; z-index: 9999;
-  transition: transform 0.15s ease, background 0.3s ease;
-  mix-blend-mode: difference;
-}
-.cursor-ring {
-  width: 36px; height: 36px;
-  border: 1.5px solid var(--accent);
-  border-radius: 50%;
-  position: fixed; pointer-events: none; z-index: 9998;
-  transition: all 0.25s ease;
-  opacity: 0.6;
-}
-
 /* ===== NAVBAR ===== */
 nav {
   position: fixed; top: 0; width: 100%; z-index: 1000;

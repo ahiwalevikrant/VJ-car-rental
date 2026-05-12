@@ -44,8 +44,6 @@ export default function Home() {
   ]);
   const [termInput, setTermInput] = useState("");
   const termBodyRef = useRef<HTMLDivElement>(null);
-  const cursorRef = useRef<HTMLDivElement>(null);
-  const cursorRingRef = useRef<HTMLDivElement>(null);
   const loaderRef = useRef<HTMLDivElement>(null);
 
   const showToast = (msg: string) => {
@@ -68,32 +66,6 @@ export default function Home() {
       }
     }, 2000);
     return () => clearTimeout(t);
-  }, []);
-
-  // Custom cursor
-  useEffect(() => {
-    let mx = 0, my = 0, rx = 0, ry = 0;
-    const onMove = (e: MouseEvent) => { mx = e.clientX; my = e.clientY; };
-    document.addEventListener("mousemove", onMove);
-    let raf: number;
-    const animCursor = () => {
-      if (cursorRef.current) {
-        cursorRef.current.style.left = mx - 6 + "px";
-        cursorRef.current.style.top = my - 6 + "px";
-      }
-      rx += (mx - rx) * 0.12;
-      ry += (my - ry) * 0.12;
-      if (cursorRingRef.current) {
-        cursorRingRef.current.style.left = rx - 18 + "px";
-        cursorRingRef.current.style.top = ry - 18 + "px";
-      }
-      raf = requestAnimationFrame(animCursor);
-    };
-    raf = requestAnimationFrame(animCursor);
-    return () => {
-      document.removeEventListener("mousemove", onMove);
-      cancelAnimationFrame(raf);
-    };
   }, []);
 
   // Scroll reveal
@@ -167,10 +139,6 @@ export default function Home() {
         <div className="loader-bar"><div className="loader-progress"></div></div>
         <div className="loader-text">LOADING YOUR RIDE...</div>
       </div>
-
-      {/* Custom Cursor */}
-      <div className="cursor" ref={cursorRef}></div>
-      <div className="cursor-ring" ref={cursorRingRef}></div>
 
       {/* NAVBAR */}
       <nav id="navbar">
