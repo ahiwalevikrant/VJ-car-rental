@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
+import { WhatsAppButton } from "@/components/WhatsAppButton";
 
 // ===== FLEET DATA =====
 const cars = [
@@ -97,6 +98,14 @@ export default function Home() {
       next.has(id) ? next.delete(id) : next.add(id);
       return next;
     });
+  };
+
+  const handleWhatsAppBook = (carName: string, carPrice: number) => {
+    const phoneNumber = "918788561680";
+    const message = `Hi VJ Rentals! I want to book ${carName} for ₹${carPrice}/day. Please provide available dates and confirm booking.`;
+    const encodedMessage = encodeURIComponent(message);
+    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
+    window.open(whatsappUrl, "_blank");
   };
 
   const handleTerminal = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -320,7 +329,7 @@ export default function Home() {
                     <div className="amount">₹{car.price.toLocaleString()}</div>
                     <div className="unit">per day</div>
                   </div>
-                  <button className="book-btn" onClick={() => showToast(`🚗 Booking ${car.name}...`)}>
+                  <button className="book-btn" onClick={() => handleWhatsAppBook(car.name, car.price)}>
                     Book Now
                   </button>
                 </div>
@@ -477,6 +486,9 @@ export default function Home() {
 
       {/* Toast */}
       <div className={`toast${toast ? " show" : ""}`}>{toast}</div>
+
+      {/* WhatsApp Floating Button */}
+      <WhatsAppButton />
     </>
   );
 }
