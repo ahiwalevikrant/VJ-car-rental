@@ -4,6 +4,8 @@ import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
 
+const withBasePath = (path: string) => `${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}${path}`;
+
 // ===== FLEET DATA =====
 const cars = [
   { id: 1, name: "Fortuner", brand: "Toyota", type: "suv", category: "SUV", price: 3999, fuel: "Petrol", seats: 7, trans: "Auto", emoji: "🏔️", img: "/assets/fortuner.jpg" },
@@ -208,7 +210,7 @@ export default function Home() {
          
             {/* Hero image: Fortuner Legender as flagship */}
             <Image
-              src="/assets/legender.jpg"
+              src={withBasePath("/assets/legender.jpg")}
               alt="Toyota Fortuner Legender — VJ Car Rental"
               width={650}
               height={370}
@@ -308,7 +310,7 @@ export default function Home() {
                   {favs.has(car.id) ? "♥" : "♡"}
                 </span>
                 <Image
-                  src={car.img}
+                  src={withBasePath(car.img)}
                   alt={`${car.brand} ${car.name}`}
                   width={320}
                   height={180}
