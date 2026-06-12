@@ -33,7 +33,7 @@ const termCommands: Record<string, () => string[]> = {
   prices: () => ["💰 VJ Car Rental Pricing:", "  Hatchback  — ₹699–₹999/day", "  Sedan      — ₹999–₹1,499/day", "  SUV        — ₹1,699–₹2,799/day", "  Luxury     — ₹3,999+/day", "  Off-Road   — ₹2,999/day"],
   cars: () => ["🚗 Available Now (Pune):", "  ✓ Toyota Fortuner · SUV · ₹3,999", "  ✓ Maruti Swift · Hatchback · ₹799", "  ✓ Mahindra Thar · Off-Road · ₹2,999", "  ✓ Hyundai Creta · SUV · ₹1,699", "  ✓ Tata Nexon EV · SUV · ₹1,999", "  ✓ 11 more cars available →"],
   status: () => ["System Status:", "  ✓ API — 99.98% uptime", "  ✓ Booking engine — Active", "  ✓ GPS tracker — Active", "  ✓ Payment gateway — Active", "  ℹ 34 cars available in Pune"],
-  hubs: () => ["📍 VJ Pick-Up Hubs:", "  → Koregaon Park, Pune", "  → Hinjewadi, Pune", "  → Shivajinagar, Pune", "  → Andheri, Mumbai", "  → Thane, Mumbai"],
+  hubs: () => ["📍 VJ Pick-Up Hubs:", "  → Koregaon Park, Pune"],
   clear: () => ["__CLEAR__"],
 };
 
@@ -42,6 +42,12 @@ export default function Home() {
   const [favs, setFavs] = useState<Set<number>>(new Set());
   const [toast, setToast] = useState<string | null>(null);
   const [theme, setTheme] = useState("midnight");
+  const [bookingInquiry, setBookingInquiry] = useState({
+    location: "Pune - Koregaon Park Hub",
+    carType: "All Types",
+    pickupDate: "",
+    returnDate: "",
+  });
   const [termLines, setTermLines] = useState<{ type: string; text: string }[]>([
     { type: "info", text: "VJ Terminal v2.0 — Type help to start" },
     { type: "output", text: "$ _" },
@@ -109,6 +115,24 @@ export default function Home() {
     const encodedMessage = encodeURIComponent(message);
     const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
     window.open(whatsappUrl, "_blank");
+  };
+
+  const handleSearchRidesInquiry = () => {
+    const phoneNumber = "918788561680";
+    const location = bookingInquiry.location.includes("Koregaon")
+      ? "Pune - Koregaon Park Hub"
+      : bookingInquiry.location;
+    const message = [
+      "Hi VJ Rentals! I want to check car availability.",
+      `Pick-up location: ${location}`,
+      `Car type: ${bookingInquiry.carType}`,
+      `Pick-up date: ${bookingInquiry.pickupDate || "Not selected"}`,
+      `Return date: ${bookingInquiry.returnDate || "Not selected"}`,
+      "Please share available cars and pricing.",
+    ].join("\n");
+    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+    window.open(whatsappUrl, "_blank");
+    showToast("Sending your ride inquiry on WhatsApp...");
   };
 
   const handleTerminal = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -180,15 +204,42 @@ export default function Home() {
 
       {/* HERO */}
       <section className="hero" id="home">
-        <div className="hero-grid-bg"></div>
-        <div className="hero-orb orb1"></div>
-        <div className="hero-orb orb2"></div>
-        <div className="hero-orb orb3"></div>
+        <div className="hero-road-bg">
+          <Image
+            src={withBasePath("/assets/legender.jpg")}
+            alt=""
+            fill
+            priority
+            sizes="100vw"
+            className="hero-road-img"
+          />
+        </div>
+        {/* Full-screen car video background */}
+        <div className="hero-video-bg">
+          <video
+            preload="none"
+            muted
+            loop
+            playsInline
+            poster={withBasePath("/assets/legender.jpg")}
+          >
+            {/* Free Pexels car driving video — license: pexels.com/license */}
+            <source src="https://videos.pexels.com/video-files/3195394/3195394-uhd_2560_1440_25fps.mp4" type="video/mp4" />
+            <source src="https://videos.pexels.com/video-files/2053855/2053855-hd_1920_1080_30fps.mp4" type="video/mp4" />
+          </video>
+        </div>
+
+        {/* Cinematic dark overlay */}
+        <div className="hero-video-overlay" />
+
+        {/* Subtle orbs still layered over video for accent glow */}
+        <div className="hero-orb orb1" />
+        <div className="hero-orb orb2" />
 
         <div className="hero-content">
           <div className="hero-badge">
             <span className="badge-dot"></span>
-            Pune · Mumbai · Now Open
+            Pune City· Now Open
           </div>
           <h1>DRIVE<span>YOUR VIBE</span>YOUR RULES</h1>
           <p>Premium self-drive car rentals built for Pune&apos;s youth. Hit the expressway in style — from weekend Goa trips to Mumbai meetups.</p>
@@ -200,7 +251,7 @@ export default function Home() {
           </div>
           <div className="hero-stats">
             <div><div className="stat-num">40+</div><div className="stat-label">Cars Available</div></div>
-            <div><div className="stat-num">3</div><div className="stat-label">City Hubs</div></div>
+            <div><div className="stat-num">1</div><div className="stat-label">City Hub</div></div>
             <div><div className="stat-num">4.9★</div><div className="stat-label">Avg Rating</div></div>
           </div>
         </div>
@@ -228,6 +279,7 @@ export default function Home() {
         </div>
       </section>
 
+
       {/* MARQUEE */}
       <div className="marquee-strip">
         <div className="marquee-inner">
@@ -242,35 +294,48 @@ export default function Home() {
       <div className="booking-bar reveal">
         <div className="book-field">
           <label>📍 Pick-up Location</label>
-          <select>
+          <select
+            onChange={(e) => setBookingInquiry((prev) => ({ ...prev, location: e.target.value }))}
+          >
             <option>Pune — Koregaon Park Hub</option>
-            <option>Pune — Hinjewadi Hub</option>
-            <option>Pune — Shivajinagar Hub</option>
-            <option>Mumbai — Andheri Hub</option>
-            <option>Mumbai — Thane Hub</option>
+            <option value="Pune - Hinjewadi Hub">Pune - Hinjewadi Hub</option>
+            <option value="Pune - Shivajinagar Hub">Pune - Shivajinagar Hub</option>
+            <option value="Mumbai - Andheri Hub">Mumbai - Andheri Hub</option>
+            <option value="Mumbai - Thane Hub">Mumbai - Thane Hub</option>
           </select>
         </div>
         <div className="book-field">
           <label>🚗 Car Type</label>
-          <select>
-            <option>All Types</option>
-            <option>Hatchback</option>
-            <option>Sedan</option>
-            <option>SUV</option>
-            <option>MUV</option>
-            <option>Off-Road</option>
-            <option>Luxury</option>
+          <select
+            value={bookingInquiry.carType}
+            onChange={(e) => setBookingInquiry((prev) => ({ ...prev, carType: e.target.value }))}
+          >
+            <option value="All Types">All Types</option>
+            <option value="Hatchback">Hatchback</option>
+            <option value="Sedan">Sedan</option>
+            <option value="SUV">SUV</option>
+            <option value="MUV">MUV</option>
+            <option value="Off-Road">Off-Road</option>
+            <option value="Luxury">Luxury</option>
           </select>
         </div>
         <div className="book-field">
           <label>📅 Pick-up Date</label>
-          <input type="date" />
+          <input
+            type="date"
+            value={bookingInquiry.pickupDate}
+            onChange={(e) => setBookingInquiry((prev) => ({ ...prev, pickupDate: e.target.value }))}
+          />
         </div>
         <div className="book-field">
           <label>📅 Return Date</label>
-          <input type="date" />
+          <input
+            type="date"
+            value={bookingInquiry.returnDate}
+            onChange={(e) => setBookingInquiry((prev) => ({ ...prev, returnDate: e.target.value }))}
+          />
         </div>
-        <button className="book-search-btn" onClick={() => showToast("🔍 Searching available rides...")}>
+        <button className="book-search-btn" onClick={handleSearchRidesInquiry}>
           Search Rides →
         </button>
       </div>
@@ -378,14 +443,14 @@ export default function Home() {
         </div>
         <div className="routes-grid reveal">
           {[
-            { icon: "🏙️", name: "Pune → Mumbai", dist: "148 km · ~2.5 hrs", price: "₹999" },
-            { icon: "⛰️", name: "Pune → Lonavala", dist: "65 km · ~1.5 hrs", price: "₹599" },
-            { icon: "🌊", name: "Pune → Alibaug", dist: "142 km · ~3 hrs", price: "₹1,199" },
-            { icon: "🏖️", name: "Pune → Goa", dist: "458 km · ~8 hrs", price: "₹3,499" },
-            { icon: "🗻", name: "Pune → Mahabaleshwar", dist: "120 km · ~3 hrs", price: "₹899" },
-            { icon: "🏔️", name: "Pune → Nashik", dist: "210 km · ~4 hrs", price: "₹1,499" },
-            { icon: "🌴", name: "Mumbai → Pune", dist: "148 km · ~2.5 hrs", price: "₹999" },
-            { icon: "🎡", name: "Pune → Aurangabad", dist: "237 km · ~4.5 hrs", price: "₹1,799" },
+            { icon: "🏙️", name: "Pune → Mumbai", dist: "148 km · ~2.5 hrs" },
+            { icon: "⛰️", name: "Pune → Lonavala", dist: "65 km · ~1.5 hrs" },
+            { icon: "🌊", name: "Pune → Alibaug", dist: "142 km · ~3 hrs",  },
+            { icon: "🏖️", name: "Pune → Goa", dist: "458 km · ~8 hrs",  },
+            { icon: "🗻", name: "Pune → Mahabaleshwar", dist: "120 km · ~3 hrs" },
+            { icon: "🏔️", name: "Pune → Nashik", dist: "210 km · ~4 hrs",  },
+            { icon: "🌴", name: "Mumbai → Pune", dist: "148 km · ~2.5 hrs" },
+            { icon: "🎡", name: "Pune → Aurangabad", dist: "237 km · ~4.5 hrs",  },
           ].map((r) => (
             <div className="route-card" key={r.name}>
               <span className="route-icon">{r.icon}</span>

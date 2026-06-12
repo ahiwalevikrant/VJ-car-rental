@@ -105,7 +105,7 @@ html { scroll-behavior: smooth; }
 body {
   background: var(--bg);
   color: var(--text);
-  font-family: 'Outfit', sans-serif;
+  font-family: 'Exo 2', 'Manrope', sans-serif;
   overflow-x: hidden;
   transition: background 0.5s ease, color 0.5s ease;
 }
@@ -129,7 +129,7 @@ nav {
   transition: all 0.4s ease;
 }
 .logo {
-  font-family: 'Bebas Neue', sans-serif;
+  font-family: 'Oxanium', sans-serif;
   font-size: 2rem;
   letter-spacing: 2px;
   color: var(--accent);
@@ -143,6 +143,7 @@ nav {
 }
 .nav-links a {
   font-size: 0.85rem; font-weight: 500; letter-spacing: 0.5px;
+  font-family: 'Exo 2', sans-serif;
   color: var(--text2);
   transition: color 0.3s ease;
   position: relative;
@@ -162,6 +163,7 @@ nav {
   border-radius: 100px;
   font-weight: 600;
   font-size: 0.82rem;
+  font-family: 'Exo 2', sans-serif;
   letter-spacing: 0.5px;
   transition: transform 0.2s, box-shadow 0.2s !important;
   box-shadow: 0 4px 20px var(--glow);
@@ -192,75 +194,185 @@ nav {
 /* ===== HERO ===== */
 .hero {
   min-height: 100vh;
-  background: var(--hero-grad);
   position: relative;
   display: flex; align-items: center;
-  padding: 100px 5% 60px;
+  padding: 100px 5% 72px;
   overflow: hidden;
-  transition: background 0.5s ease;
+  background: #05070b;
+  isolation: isolate;
 }
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background:
+    linear-gradient(90deg, rgba(5,7,11,0.96) 0%, rgba(5,7,11,0.72) 42%, rgba(5,7,11,0.24) 100%),
+    linear-gradient(180deg, rgba(5,7,11,0.08) 0%, rgba(5,7,11,0.86) 100%),
+    url("/assets/legender.jpg") 66% center / cover no-repeat;
+  transform: scale(1.08);
+  filter: saturate(1.1) contrast(1.15);
+  animation: roadPush 16s ease-in-out infinite alternate;
+}
+.hero::after {
+  content: "";
+  position: absolute;
+  left: 45%;
+  right: -8%;
+  bottom: -10%;
+  z-index: 2;
+  height: 38%;
+  background:
+    linear-gradient(67deg, transparent 0 44%, rgba(255,255,255,0.42) 44.4% 44.8%, transparent 45.2% 100%),
+    linear-gradient(90deg, transparent 0 48%, rgba(246,200,95,0.36) 48.4% 48.8%, transparent 49.2% 100%),
+    linear-gradient(113deg, transparent 0 56%, rgba(255,255,255,0.34) 56.4% 56.8%, transparent 57.2% 100%);
+  opacity: 0.55;
+  transform: perspective(520px) rotateX(62deg) skewX(-12deg);
+  transform-origin: bottom;
+  pointer-events: none;
+}
+@keyframes roadPush { from { transform: scale(1.08); } to { transform: scale(1.14) translateX(-1.5%); } }
+
+.hero-road-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+}
+.hero-road-bg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, rgba(5,7,11,0.96) 0%, rgba(5,7,11,0.72) 42%, rgba(5,7,11,0.24) 100%),
+    linear-gradient(180deg, rgba(5,7,11,0.08) 0%, rgba(5,7,11,0.86) 100%);
+}
+.hero-road-img {
+  object-fit: cover;
+  object-position: 66% center;
+  opacity: 0.72;
+  transform: scale(1.08);
+  filter: saturate(1.1) contrast(1.15);
+  animation: roadPush 16s ease-in-out infinite alternate;
+}
+
+/* Video Background */
+.hero-video-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  display: none;
+}
+.hero-video-bg video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  opacity: 0.55;
+  transform: scale(1.04);
+  animation: videoZoomIn 18s ease-in-out infinite alternate;
+}
+@keyframes videoZoomIn {
+  from { transform: scale(1.04); }
+  to   { transform: scale(1.12); }
+}
+
+/* Cinematic overlay: dark vignette + theme color tint */
+.hero-video-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background:
+    radial-gradient(circle at 74% 44%, rgba(246,200,95,0.13), transparent 28%),
+    linear-gradient(to right, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.55) 54%, rgba(0,0,0,0.12) 100%),
+    linear-gradient(to top,  rgba(0,0,0,0.72)  0%, transparent 50%);
+}
+
+/* Fallback grid (shown only when video fails / on mobile) */
 .hero-grid-bg {
-  position: absolute; inset: 0;
+  position: absolute; inset: 0; z-index: 1;
   background-image:
     linear-gradient(var(--card-border) 1px, transparent 1px),
     linear-gradient(90deg, var(--card-border) 1px, transparent 1px);
   background-size: 60px 60px;
-  opacity: 0.4;
+  opacity: 0.25;
 }
 .hero-orb {
   position: absolute;
-  border-radius: 50%;
-  filter: blur(80px);
+  right: -18%;
+  width: 44%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.65), transparent);
+  border-radius: 999px;
+  filter: none;
   pointer-events: none;
-  animation: orbFloat 8s ease-in-out infinite;
+  animation: speedLine 2.8s linear infinite;
+  z-index: 2;
+  transform: rotate(-8deg);
 }
-.orb1 { width: 500px; height: 500px; background: var(--accent); opacity: 0.12; top: -100px; right: 15%; animation-delay: 0s; }
-.orb2 { width: 300px; height: 300px; background: var(--accent3); opacity: 0.1; bottom: -50px; left: 10%; animation-delay: 3s; }
-.orb3 { width: 200px; height: 200px; background: var(--accent2); opacity: 0.08; top: 40%; left: 40%; animation-delay: 5s; }
-@keyframes orbFloat { 0%,100%{transform:translateY(0) scale(1)} 50%{transform:translateY(-30px) scale(1.05)} }
+.orb1 { top: 36%; animation-delay: 0s; }
+.orb2 { top: 68%; animation-delay: 1.2s; opacity: 0.55; }
+.orb3 { width: 200px; height: 200px; background: var(--accent2); opacity: 0.06; top: 40%; left: 40%; animation-delay: 5s; }
+@keyframes speedLine {
+  from { transform: translateX(0) rotate(-8deg); opacity: 0; }
+  18% { opacity: 0.75; }
+  to { transform: translateX(-170vw) rotate(-8deg); opacity: 0; }
+}
 
 .hero-content {
-  position: relative; z-index: 2;
-  max-width: 560px;
+  position: relative; z-index: 5;
+  max-width: 590px;
   animation: fadeUp 0.9s cubic-bezier(.16,1,.3,1) both;
 }
 @keyframes fadeUp { from{opacity:0;transform:translateY(40px)} to{opacity:1;transform:translateY(0)} }
 
 .hero-badge {
   display: inline-flex; align-items: center; gap: 8px;
-  background: var(--tag-bg);
-  border: 1px solid var(--card-border);
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.2);
   padding: 6px 16px;
   border-radius: 100px;
   font-size: 0.78rem;
-  font-weight: 600;
-  letter-spacing: 1px;
+  font-weight: 700;
+  font-family: 'Exo 2', sans-serif;
+  letter-spacing: 1.8px;
   text-transform: uppercase;
-  color: var(--tag-text);
+  color: rgba(255,255,255,0.9);
   margin-bottom: 28px;
   animation: fadeUp 0.9s 0.1s cubic-bezier(.16,1,.3,1) both;
+  backdrop-filter: blur(8px);
 }
 .badge-dot { width: 6px; height: 6px; background: var(--accent2); border-radius: 50%; animation: pulse 2s infinite; }
 
 .hero h1 {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: clamp(4rem, 8vw, 7.5rem);
-  line-height: 0.95;
-  letter-spacing: 1px;
-  color: var(--text);
+  font-family: 'Oxanium', sans-serif;
+  font-size: clamp(4.4rem, 8vw, 8.4rem);
+  font-weight: 900;
+  line-height: 0.86;
+  letter-spacing: 0;
+  color: #ffffff;
   margin-bottom: 24px;
   animation: fadeUp 0.9s 0.2s cubic-bezier(.16,1,.3,1) both;
+  text-transform: uppercase;
+  text-shadow: 0 12px 44px rgba(0,0,0,0.72);
 }
-.hero h1 span { color: var(--accent2); display: block; }
+.hero h1 span {
+  color: #f6c85f;
+  display: block;
+  text-shadow: 0 0 28px rgba(246,200,95,0.28), 0 12px 44px rgba(0,0,0,0.72);
+}
 
 .hero p {
-  font-size: 1.05rem;
-  color: var(--text2);
-  line-height: 1.7;
+  font-size: 1.08rem;
+  color: rgba(255,255,255,0.84);
+  line-height: 1.62;
   margin-bottom: 40px;
   max-width: 440px;
-  font-weight: 400;
+  font-weight: 500;
+  font-family: 'Manrope', sans-serif;
   animation: fadeUp 0.9s 0.3s cubic-bezier(.16,1,.3,1) both;
+  text-shadow: 0 2px 12px rgba(0,0,0,0.4);
 }
 
 .hero-btns {
@@ -273,42 +385,47 @@ nav {
   padding: 14px 32px;
   border-radius: 100px;
   font-weight: 700; font-size: 0.9rem;
-  letter-spacing: 0.5px;
+  font-family: 'Exo 2', sans-serif;
+  letter-spacing: 1px;
   border: none; cursor: pointer;
   transition: all 0.3s ease;
   box-shadow: 0 8px 30px var(--glow);
 }
 .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 14px 40px var(--glow); }
 .btn-ghost {
-  background: transparent;
-  color: var(--text);
+  background: rgba(255,255,255,0.08);
+  color: #fff;
   padding: 14px 32px;
   border-radius: 100px;
   font-weight: 600; font-size: 0.9rem;
-  border: 1.5px solid var(--card-border);
+  font-family: 'Exo 2', sans-serif;
+  border: 1.5px solid rgba(255,255,255,0.25);
   cursor: pointer;
   transition: all 0.3s ease;
+  backdrop-filter: blur(8px);
 }
-.btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
+.btn-ghost:hover { border-color: var(--accent); color: var(--accent); background: rgba(255,255,255,0.12); }
 
 .hero-stats {
   display: flex; gap: 40px; margin-top: 60px;
   animation: fadeUp 0.9s 0.5s cubic-bezier(.16,1,.3,1) both;
 }
 .stat-num {
-  font-family: 'Bebas Neue', sans-serif;
+  font-family: 'Oxanium', sans-serif;
   font-size: 2.8rem;
-  color: var(--accent);
+  font-weight: 800;
+  color: #f6c85f;
   line-height: 1;
+  text-shadow: 0 2px 12px rgba(0,0,0,0.5);
 }
-.stat-label { font-size: 0.78rem; color: var(--text2); font-weight: 500; letter-spacing: 0.5px; }
+.stat-label { font-size: 0.78rem; color: rgba(255,255,255,0.72); font-weight: 600; font-family: 'Exo 2', sans-serif; letter-spacing: 0.9px; text-transform: uppercase; }
 
 /* Hero car showcase */
 .hero-visual {
   position: absolute; right: 0; top: 50%;
   transform: translateY(-50%);
   width: 55%;
-  z-index: 2;
+  z-index: 5;
   animation: fadeUp 0.9s 0.3s cubic-bezier(.16,1,.3,1) both;
   display: flex; align-items: center; justify-content: center;
 }
@@ -316,25 +433,29 @@ nav {
   position: relative;
   width: 100%;
   display: flex; align-items: center; justify-content: center;
+  perspective: 1000px;
 }
 .hero-car-img {
   width: 90%;
   max-width: 650px;
-  filter: drop-shadow(0 30px 60px var(--glow));
-  animation: carFloat 6s ease-in-out infinite;
-  object-fit: contain;
+  border-radius: 18px;
+  filter: saturate(1.12) contrast(1.1) drop-shadow(0 34px 55px rgba(0,0,0,0.74));
+  animation: carRun 4.8s ease-in-out infinite;
+  object-fit: cover;
+  transform: rotateY(-8deg) rotateZ(-1deg);
 }
-@keyframes carFloat { 0%,100%{transform:translateY(0) rotateY(-5deg)} 50%{transform:translateY(-18px) rotateY(5deg)} }
+@keyframes carRun { 0%,100%{transform:translateY(0) rotateY(-8deg) rotateZ(-1deg)} 50%{transform:translateY(-10px) translateX(8px) rotateY(-3deg) rotateZ(-0.4deg)} }
 .car-glow-ring {
   position: absolute;
-  width: 80%; height: 30px;
-  background: var(--accent);
+  width: 78%; height: 22px;
+  background: #f6c85f;
   border-radius: 50%;
-  filter: blur(30px);
-  opacity: 0.25;
-  bottom: 0;
-  animation: carFloat 6s ease-in-out infinite;
+  filter: blur(26px);
+  opacity: 0.24;
+  bottom: -10px;
+  animation: shadowRun 4.8s ease-in-out infinite;
 }
+@keyframes shadowRun { 0%,100%{transform:scaleX(1);opacity:0.24} 50%{transform:scaleX(0.86);opacity:0.16} }
 .car-tags {
   position: absolute;
   display: flex; flex-direction: column; gap: 10px;
@@ -351,6 +472,7 @@ nav {
   color: var(--text);
   box-shadow: 0 8px 24px rgba(0,0,0,0.2);
   animation: tagPulse 3s ease-in-out infinite;
+  font-family: 'Exo 2', sans-serif;
 }
 @keyframes tagPulse { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-4px)} }
 .car-tag-icon { font-size: 1rem; }
@@ -376,6 +498,7 @@ nav {
 .book-field label {
   display: block;
   font-size: 0.72rem; font-weight: 700;
+  font-family: 'Exo 2', sans-serif;
   letter-spacing: 1px; text-transform: uppercase;
   color: var(--text2);
   margin-bottom: 8px;
@@ -387,7 +510,7 @@ nav {
   border-radius: 12px;
   padding: 12px 16px;
   color: var(--text);
-  font-family: 'Outfit', sans-serif;
+  font-family: 'Manrope', sans-serif;
   font-size: 0.9rem;
   outline: none;
   transition: border-color 0.3s ease;
@@ -400,7 +523,7 @@ nav {
   border: none; cursor: pointer;
   padding: 13px 32px;
   border-radius: 12px;
-  font-family: 'Outfit', sans-serif;
+  font-family: 'Exo 2', sans-serif;
   font-size: 0.9rem; font-weight: 700;
   transition: all 0.3s ease;
   box-shadow: 0 6px 20px var(--glow);
@@ -419,7 +542,7 @@ section { padding: 100px 5%; }
 }
 .section-tag::before { content: ''; width: 24px; height: 2px; background: var(--accent); }
 .section-title {
-  font-family: 'Bebas Neue', sans-serif;
+  font-family: 'Oxanium', sans-serif;
   font-size: clamp(2.8rem, 5vw, 4.5rem);
   line-height: 1.05;
   color: var(--text);
@@ -509,7 +632,7 @@ section { padding: 100px 5%; }
 
 .car-info { padding: 20px 24px 24px; }
 .car-name {
-  font-family: 'Bebas Neue', sans-serif;
+  font-family: 'Oxanium', sans-serif;
   font-size: 1.6rem;
   letter-spacing: 1px;
   margin-bottom: 4px;
@@ -535,7 +658,7 @@ section { padding: 100px 5%; }
 }
 .car-price .per { font-size: 0.72rem; color: var(--text2); }
 .car-price .amount {
-  font-family: 'Bebas Neue', sans-serif;
+  font-family: 'Oxanium', sans-serif;
   font-size: 1.8rem;
   color: var(--accent);
   line-height: 1;
@@ -547,7 +670,7 @@ section { padding: 100px 5%; }
   border: none; cursor: pointer;
   padding: 10px 22px;
   border-radius: 100px;
-  font-family: 'Outfit', sans-serif;
+  font-family: 'Exo 2', sans-serif;
   font-weight: 700; font-size: 0.82rem;
   transition: all 0.3s ease;
   box-shadow: 0 4px 16px var(--glow);
@@ -655,7 +778,7 @@ section { padding: 100px 5%; }
 .route-icon { font-size: 1.8rem; }
 .route-name { font-weight: 700; font-size: 0.95rem; color: var(--text); }
 .route-dist { font-size: 0.78rem; color: var(--text2); }
-.route-price { margin-left: auto; font-family: 'Bebas Neue', sans-serif; font-size: 1.3rem; color: var(--accent); }
+.route-price { margin-left: auto; font-family: 'Oxanium', sans-serif; font-size: 1.3rem; font-weight: 800; color: var(--accent); }
 
 /* ===== TERMINAL / TEST SECTION ===== */
 .terminal-section {
@@ -739,14 +862,14 @@ section { padding: 100px 5%; }
 .cta-band::before {
   content: 'VJ';
   position: absolute; right: 5%; bottom: -40px;
-  font-family: 'Bebas Neue', sans-serif;
+  font-family: 'Oxanium', sans-serif;
   font-size: 20rem;
   color: rgba(255,255,255,0.04);
   line-height: 1;
   pointer-events: none;
 }
 .cta-text h2 {
-  font-family: 'Bebas Neue', sans-serif;
+  font-family: 'Oxanium', sans-serif;
   font-size: clamp(2.5rem, 5vw, 4rem);
   color: #fff;
   margin-bottom: 8px;
@@ -836,7 +959,7 @@ footer {
 }
 @keyframes marquee { from{transform:translateX(0)} to{transform:translateX(-50%)} }
 .marquee-item {
-  font-family: 'Bebas Neue', sans-serif;
+  font-family: 'Oxanium', sans-serif;
   font-size: 1rem; letter-spacing: 3px;
   color: rgba(255,255,255,0.85);
 }
@@ -853,7 +976,7 @@ footer {
   transition: opacity 0.5s ease;
 }
 .loader-logo {
-  font-family: 'Bebas Neue', sans-serif;
+  font-family: 'Oxanium', sans-serif;
   font-size: 4rem;
   letter-spacing: 4px;
   color: var(--accent);
@@ -945,7 +1068,7 @@ footer {
   color: #fff;
   border: 1px solid rgba(255, 255, 255, 0.15);
   border-radius: 100px;
-  font-family: 'Outfit', sans-serif;
+  font-family: 'Exo 2', sans-serif;
   font-weight: 700;
   font-size: 0.92rem;
   cursor: pointer;
