@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
+import { CallUsButton } from "@/components/CallUsButton";
 
 const withBasePath = (path: string) => `${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}${path}`;
 
@@ -491,6 +492,9 @@ export default function Home() {
 
       {/* WhatsApp Floating Button */}
       <WhatsAppButton />
+
+      {/* Call Us Floating Button */}
+      <CallUsButton />
     </>
   );
 }
