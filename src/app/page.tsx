@@ -443,14 +443,14 @@ export default function Home() {
         </div>
         <div className="routes-grid reveal">
           {[
-            { icon: "🏙️", name: "Pune → Mumbai", dist: "148 km · ~2.5 hrs" },
-            { icon: "⛰️", name: "Pune → Lonavala", dist: "65 km · ~1.5 hrs" },
-            { icon: "🌊", name: "Pune → Alibaug", dist: "142 km · ~3 hrs",  },
-            { icon: "🏖️", name: "Pune → Goa", dist: "458 km · ~8 hrs",  },
-            { icon: "🗻", name: "Pune → Mahabaleshwar", dist: "120 km · ~3 hrs" },
-            { icon: "🏔️", name: "Pune → Nashik", dist: "210 km · ~4 hrs",  },
-            { icon: "🌴", name: "Mumbai → Pune", dist: "148 km · ~2.5 hrs" },
-            { icon: "🎡", name: "Pune → Aurangabad", dist: "237 km · ~4.5 hrs",  },
+            { icon: "🏙️", name: "Pune → Mumbai", dist: "148 km · ~2.5 hrs", price: "₹999" },
+            { icon: "⛰️", name: "Pune → Lonavala", dist: "65 km · ~1.5 hrs", price: "₹599" },
+            { icon: "🌊", name: "Pune → Alibaug", dist: "142 km · ~3 hrs", price: "₹1,199" },
+            { icon: "🏖️", name: "Pune → Goa", dist: "458 km · ~8 hrs", price: "₹3,499" },
+            { icon: "🗻", name: "Pune → Mahabaleshwar", dist: "120 km · ~3 hrs", price: "₹899" },
+            { icon: "🏔️", name: "Pune → Nashik", dist: "210 km · ~4 hrs", price: "₹1,499" },
+            { icon: "🌴", name: "Mumbai → Pune", dist: "148 km · ~2.5 hrs", price: "₹999" },
+            { icon: "🎡", name: "Pune → Aurangabad", dist: "237 km · ~4.5 hrs", price: "₹1,799" },
           ].map((r) => (
             <div className="route-card" key={r.name}>
               <span className="route-icon">{r.icon}</span>
