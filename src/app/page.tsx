@@ -36,7 +36,7 @@ const requestedCars = [
   { id: 6, name: "New Swift", brand: "Maruti Suzuki", type: "hatchback", category: "Hatchback", price: 2200, fuel: "Petrol", seats: 5, trans: "Manual", emoji: "HB", img: "/assets/new-swift.jpg" },
   { id: 7, name: "Baleno", brand: "Maruti Suzuki", type: "hatchback", category: "Hatchback", price: 2300, fuel: "Petrol", seats: 5, trans: "Manual", emoji: "HB", img: "/assets/baleno.jpg" },
   { id: 8, name: "Venue", brand: "Hyundai", type: "suv", category: "SUV", price: 2800, fuel: "Petrol", seats: 5, trans: "Manual", emoji: "SUV", img: "/assets/venue.jpg" },
-  { id: 9, name: "Breeza", brand: "Maruti Suzuki", type: "suv", category: "SUV", price: 2700, fuel: "Petrol", seats: 5, trans: "Manual", emoji: "SUV", img: "/assets/brezza.jpg" },
+  { id: 9, name: "Brezza", brand: "Maruti Suzuki", type: "suv", category: "SUV", price: 2700, fuel: "Petrol", seats: 5, trans: "Manual", emoji: "SUV", img: "/assets/Brezza.jpg" },
   { id: 10, name: "Innova CRYSTA", brand: "Toyota", type: "muv", category: "MUV", price: 4500, fuel: "Diesel", seats: 7, trans: "Manual", emoji: "MUV", img: "/assets/innova-crysta.jpg" },
   { id: 11, name: "Ertiga", brand: "Maruti Suzuki", type: "muv", category: "MUV", price: 3200, fuel: "Petrol", seats: 7, trans: "Manual", emoji: "MUV", img: "/assets/ertiga.jpg" },
   { id: 12, name: "Dzire cng", brand: "Maruti Suzuki", type: "sedan", category: "Sedan", price: 2600, fuel: "CNG", seats: 5, trans: "Manual", emoji: "CNG", img: "/assets/dzire-cng.jpg" },
