@@ -27,6 +27,25 @@ const cars = [
   { id: 16, name: "Fortuner Legender", brand: "Toyota", type: "luxury", category: "Luxury", price: 4999, fuel: "Diesel", seats: 7, trans: "Auto", emoji: "👑", img: "/assets/legender.jpg" },
 ];
 
+const requestedCars = [
+  { id: 1, name: "Thar", brand: "Mahindra", type: "offroad", category: "Off-Road", price: 4500, fuel: "Diesel", seats: 4, trans: "Manual", emoji: "4x4", img: "/assets/thar.jpg" },
+  { id: 2, name: "CRETA", brand: "Hyundai", type: "suv", category: "SUV", price: 3500, fuel: "Petrol", seats: 5, trans: "Manual", emoji: "SUV", img: "/assets/creta.jpg" },
+  { id: 3, name: "Fronx", brand: "Maruti Suzuki", type: "hatchback", category: "Hatchback", price: 2500, fuel: "Petrol", seats: 5, trans: "Manual", emoji: "AT", img: "/assets/fronx.jpg" },
+  { id: 4, name: "New i20", brand: "Hyundai", type: "hatchback", category: "Hatchback", price: 2400, fuel: "Petrol", seats: 5, trans: "Manual", emoji: "HB", img: "/assets/new-i20.jpg" },
+  { id: 5, name: "Grand i10 nios", brand: "Hyundai", type: "hatchback", category: "Hatchback", price: 2100, fuel: "Petrol", seats: 5, trans: "Manual", emoji: "HB", img: "/assets/grand-i10-nios.jpg" },
+  { id: 6, name: "New Swift", brand: "Maruti Suzuki", type: "hatchback", category: "Hatchback", price: 2200, fuel: "Petrol", seats: 5, trans: "Manual", emoji: "HB", img: "/assets/new-swift.jpg" },
+  { id: 7, name: "Baleno", brand: "Maruti Suzuki", type: "hatchback", category: "Hatchback", price: 2300, fuel: "Petrol", seats: 5, trans: "Manual", emoji: "HB", img: "/assets/baleno.jpg" },
+  { id: 8, name: "Venue", brand: "Hyundai", type: "suv", category: "SUV", price: 2800, fuel: "Petrol", seats: 5, trans: "Manual", emoji: "SUV", img: "/assets/venue.jpg" },
+  { id: 9, name: "Breeza", brand: "Maruti Suzuki", type: "suv", category: "SUV", price: 2700, fuel: "Petrol", seats: 5, trans: "Manual", emoji: "SUV", img: "/assets/brezza.jpg" },
+  { id: 10, name: "Innova CRYSTA", brand: "Toyota", type: "muv", category: "MUV", price: 4500, fuel: "Diesel", seats: 7, trans: "Manual", emoji: "MUV", img: "/assets/innova-crysta.jpg" },
+  { id: 11, name: "Ertiga", brand: "Maruti Suzuki", type: "muv", category: "MUV", price: 3200, fuel: "Petrol", seats: 7, trans: "Manual", emoji: "MUV", img: "/assets/ertiga.jpg" },
+  { id: 12, name: "Dzire cng", brand: "Maruti Suzuki", type: "sedan", category: "Sedan", price: 2600, fuel: "CNG", seats: 5, trans: "Manual", emoji: "CNG", img: "/assets/dzire-cng.jpg" },
+  { id: 13, name: "Fronx cng", brand: "Maruti Suzuki", type: "hatchback", category: "Hatchback", price: 2600, fuel: "CNG", seats: 5, trans: "Manual", emoji: "CNG", img: "/assets/fronx-cng.jpg" },
+  { id: 14, name: "Baleno cng", brand: "Maruti Suzuki", type: "hatchback", category: "Hatchback", price: 2600, fuel: "CNG", seats: 5, trans: "Manual", emoji: "CNG", img: "/assets/baleno-cng.jpg" },
+  { id: 15, name: "Fronx petrol", brand: "Maruti Suzuki", type: "hatchback", category: "Hatchback", price: 2500, fuel: "Petrol", seats: 5, trans: "Manual", emoji: "PTL", img: "/assets/fronx-petrol.jpg" },
+  { id: 16, name: "Altroz", brand: "Tata", type: "hatchback", category: "Hatchback", price: 2400, fuel: "Petrol", seats: 5, trans: "Manual", emoji: "HB", img: "/assets/altroz.jpg" },
+];
+
 const termCommands: Record<string, () => string[]> = {
   help: () => ["Available commands:", "  book    — Start a booking", "  prices  — Show pricing", "  cars    — List fleet", "  status  — System status", "  hubs    — Show pickup hubs", "  clear   — Clear terminal"],
   book: () => ["→ Opening booking wizard...", "✓ Select your car → Select dates → Confirm → Done!", "💳 Payment via UPI, Card, or Cash"],
@@ -36,6 +55,29 @@ const termCommands: Record<string, () => string[]> = {
   hubs: () => ["📍 VJ Pick-Up Hubs:", "  → Koregaon Park, Pune"],
   clear: () => ["__CLEAR__"],
 };
+
+termCommands.prices = () => [
+  "VJ Car Rental Pricing:",
+  "  Hatchback  - Rs. 2,100-Rs. 2,600/day",
+  "  Sedan      - Rs. 2,600/day",
+  "  SUV        - Rs. 2,700-Rs. 3,500/day",
+  "  MUV        - Rs. 3,200-Rs. 4,500/day",
+  "  Off-Road   - Rs. 4,500/day",
+];
+
+termCommands.cars = () => [
+  "Available Now (Pune):",
+  ...requestedCars.slice(0, 8).map((car) => `  - ${car.brand} ${car.name} - Rs. ${car.price.toLocaleString()}`),
+  `  - ${requestedCars.length - 8} more cars available`,
+];
+
+termCommands.status = () => [
+  "System Status:",
+  "  Booking engine - Active",
+  "  GPS tracker - Active",
+  "  Payment gateway - Active",
+  `  ${requestedCars.length} cars available in Pune`,
+];
 
 export default function Home() {
   const [filter, setFilter] = useState("all");
@@ -99,7 +141,7 @@ export default function Home() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  const filteredCars = filter === "all" ? cars : cars.filter((c) => c.type === filter);
+  const filteredCars = filter === "all" ? requestedCars : requestedCars.filter((c) => c.type === filter);
 
   const toggleFav = (id: number) => {
     setFavs((prev) => {
@@ -250,7 +292,7 @@ export default function Home() {
             <button className="btn-ghost">How It Works</button>
           </div>
           <div className="hero-stats">
-            <div><div className="stat-num">40+</div><div className="stat-label">Cars Available</div></div>
+            <div><div className="stat-num">16</div><div className="stat-label">Cars Available</div></div>
             <div><div className="stat-num">1</div><div className="stat-label">City Hub</div></div>
             <div><div className="stat-num">4.9★</div><div className="stat-label">Avg Rating</div></div>
           </div>
@@ -351,7 +393,7 @@ export default function Home() {
             </p>
           </div>
           <div className="filter-tabs">
-            {[["all", "All"], ["hatchback", "Hatchback"], ["sedan", "Sedan"], ["suv", "SUV"], ["offroad", "Off-Road"], ["luxury", "Luxury"]].map(([val, label]) => (
+            {[["all", "All"], ["hatchback", "Hatchback"], ["sedan", "Sedan"], ["suv", "SUV"], ["muv", "MUV"], ["offroad", "Off-Road"]].map(([val, label]) => (
               <button
                 key={val}
                 className={`filter-tab${filter === val ? " active" : ""}`}
@@ -439,18 +481,18 @@ export default function Home() {
         <div className="reveal">
           <div className="section-tag">POPULAR ROUTES</div>
           <h2 className="section-title">WHERE WILL<br />YOU GO?</h2>
-          <p className="section-sub">Most-loved road trips our customers take. Prices start from:</p>
+          <p className="section-sub">Most-loved road trips our customers take.</p>
         </div>
         <div className="routes-grid reveal">
           {[
-            { icon: "🏙️", name: "Pune → Mumbai", dist: "148 km · ~2.5 hrs", price: "₹999" },
-            { icon: "⛰️", name: "Pune → Lonavala", dist: "65 km · ~1.5 hrs", price: "₹599" },
-            { icon: "🌊", name: "Pune → Alibaug", dist: "142 km · ~3 hrs", price: "₹1,199" },
-            { icon: "🏖️", name: "Pune → Goa", dist: "458 km · ~8 hrs", price: "₹3,499" },
-            { icon: "🗻", name: "Pune → Mahabaleshwar", dist: "120 km · ~3 hrs", price: "₹899" },
-            { icon: "🏔️", name: "Pune → Nashik", dist: "210 km · ~4 hrs", price: "₹1,499" },
-            { icon: "🌴", name: "Mumbai → Pune", dist: "148 km · ~2.5 hrs", price: "₹999" },
-            { icon: "🎡", name: "Pune → Aurangabad", dist: "237 km · ~4.5 hrs", price: "₹1,799" },
+            { icon: "🏙️", name: "Pune → Mumbai", dist: "148 km · ~2.5 hrs" },
+            { icon: "⛰️", name: "Pune → Lonavala", dist: "65 km · ~1.5 hrs" },
+            { icon: "🌊", name: "Pune → Alibaug", dist: "142 km · ~3 hrs" },
+            { icon: "🏖️", name: "Pune → Goa", dist: "458 km · ~8 hrs" },
+            { icon: "🗻", name: "Pune → Mahabaleshwar", dist: "120 km · ~3 hrs" },
+            { icon: "🏔️", name: "Pune → Nashik", dist: "210 km · ~4 hrs" },
+            { icon: "🌴", name: "Mumbai → Pune", dist: "148 km · ~2.5 hrs" },
+            { icon: "🎡", name: "Pune → Aurangabad", dist: "237 km · ~4.5 hrs" },
           ].map((r) => (
             <div className="route-card" key={r.name}>
               <span className="route-icon">{r.icon}</span>
@@ -458,7 +500,6 @@ export default function Home() {
                 <div className="route-name">{r.name}</div>
                 <div className="route-dist">{r.dist}</div>
               </div>
-              <div className="route-price">{r.price}</div>
             </div>
           ))}
         </div>
