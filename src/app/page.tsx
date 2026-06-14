@@ -177,6 +177,15 @@ export default function Home() {
     showToast("Sending your ride inquiry on WhatsApp...");
   };
 
+  const handleWhatsAppClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    const phoneNumber = "918788561680";
+    const message = "Hi VJ Rentals! I want to inquire about booking a car. Please share availability and pricing.";
+    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+    window.open(whatsappUrl, "_blank");
+    showToast("Opening WhatsApp inquiry...");
+  };
+
   const handleTerminal = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key !== "Enter") return;
     const cmd = termInput.trim().toLowerCase();
@@ -229,7 +238,7 @@ export default function Home() {
           <li><a href="#routes">Routes</a></li>
           <li><a href="#why">Why VJ</a></li>
           <li><a href="#reviews">Reviews</a></li>
-          <li><a href="#" className="nav-cta">Book Now →</a></li>
+          <li><a href="#" className="nav-cta" onClick={handleWhatsAppClick}>Book Now →</a></li>
         </ul>
         <div className="theme-switcher">
           {["midnight", "solar", "emerald", "crimson", "chrome"].map((t) => (
@@ -289,7 +298,6 @@ export default function Home() {
             <button className="btn-primary" onClick={() => document.getElementById("fleet")?.scrollIntoView({ behavior: "smooth" })}>
               Explore Fleet 🚗
             </button>
-            <button className="btn-ghost">How It Works</button>
           </div>
           <div className="hero-stats">
             <div><div className="stat-num">16</div><div className="stat-label">Cars Available</div></div>
@@ -561,12 +569,6 @@ export default function Home() {
           <div className="footer-brand">
             <div className="logo"><div className="logo-dot"></div>VJ RENTALS</div>
             <p>Pune&apos;s coolest self-drive car rental. Built for the youth who want to move on their own terms.</p>
-            <div className="social-links" style={{ marginTop: "20px" }}>
-              <div className="social-link">📸</div>
-              <div className="social-link">🐦</div>
-              <div className="social-link">💼</div>
-              <div className="social-link">📱</div>
-            </div>
           </div>
           <div className="footer-col">
             <h4>Fleet</h4>
@@ -583,8 +585,23 @@ export default function Home() {
           <div className="footer-col">
             <h4>Company</h4>
             <ul>
-              {["About VJ", "Careers", "Terms", "Privacy", "Contact", "Blog"].map((i) => <li key={i}>{i}</li>)}
+              <li><a href="#why">About VJ</a></li>
             </ul>
+            <a
+              className="footer-map-box"
+              href="https://maps.app.goo.gl/wTBRgiLm5mE6mw2YA"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Open VJ Rentals location in Google Maps"
+            >
+              <iframe
+                src="https://www.google.com/maps?q=Koregaon%20Park%2C%20Pune&output=embed"
+                title="VJ Rentals Map"
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+              />
+              <span>Open Map</span>
+            </a>
           </div>
         </div>
         <div className="footer-bottom">
