@@ -1,4 +1,4 @@
-# VJ Car Rental
+# VJ Cars Rental
 
 Next.js static site configured for GitHub Pages with a custom domain.
 

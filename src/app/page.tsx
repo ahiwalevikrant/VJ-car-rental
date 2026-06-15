@@ -59,7 +59,7 @@ const termCommands: Record<string, () => string[]> = {
 };
 
 termCommands.prices = () => [
-  "VJ Car Rental Pricing:",
+  "VJ Cars Rental Pricing:",
   "  Hatchback  - Rs. 2,100-Rs. 2,600/day",
   "  Sedan      - Rs. 2,600/day",
   "  SUV        - Rs. 2,700-Rs. 3,500/day",
@@ -224,7 +224,7 @@ export default function Home() {
     <>
       {/* Loader */}
       <div className="page-loader" ref={loaderRef}>
-        <div className="loader-logo">VJ RENTAL</div>
+        <div className="loader-logo">VJ CARS RENTAL</div>
         <div className="loader-bar"><div className="loader-progress"></div></div>
         <div className="loader-text">LOADING YOUR RIDE...</div>
       </div>
@@ -233,7 +233,7 @@ export default function Home() {
       <nav id="navbar">
         <div className="logo">
           <div className="logo-dot"></div>
-          VJ RENTALS
+          VJ CARS RENTAL
         </div>
         <ul className="nav-links">
           <li><a href="#fleet">Fleet</a></li>
@@ -350,10 +350,6 @@ export default function Home() {
             onChange={(e) => setBookingInquiry((prev) => ({ ...prev, location: e.target.value }))}
           >
             <option>Pune — Koregaon Park Hub</option>
-            <option value="Pune - Hinjewadi Hub">Pune - Hinjewadi Hub</option>
-            <option value="Pune - Shivajinagar Hub">Pune - Shivajinagar Hub</option>
-            <option value="Mumbai - Andheri Hub">Mumbai - Andheri Hub</option>
-            <option value="Mumbai - Thane Hub">Mumbai - Thane Hub</option>
           </select>
         </div>
         <div className="book-field">
@@ -465,7 +461,7 @@ export default function Home() {
           <div className="section-tag">WHY VJ</div>
           <h2 className="section-title">MORE THAN<br />JUST A CAR</h2>
           <p className="section-sub" style={{ margin: "0 auto" }}>
-            We built VJ Car Rental for people like us — young, moving fast, with places to be and stories to create.
+            We built VJ Cars Rental for people like us — young, moving fast, with places to be and stories to create.
           </p>
         </div>
         <div className="why-grid">
