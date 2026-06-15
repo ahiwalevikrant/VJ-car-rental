@@ -44,6 +44,8 @@ const requestedCars = [
   { id: 14, name: "Baleno cng", brand: "Maruti Suzuki", type: "hatchback", category: "Hatchback", price: 2600, fuel: "CNG", seats: 5, trans: "Manual", emoji: "CNG", img: "/assets/baleno-cng.jpg" },
   { id: 15, name: "Fronx petrol", brand: "Maruti Suzuki", type: "hatchback", category: "Hatchback", price: 2500, fuel: "Petrol", seats: 5, trans: "Manual", emoji: "PTL", img: "/assets/fronx-petrol.jpg" },
   { id: 16, name: "Altroz", brand: "Tata", type: "hatchback", category: "Hatchback", price: 2400, fuel: "Petrol", seats: 5, trans: "Manual", emoji: "HB", img: "/assets/altroz.jpg" },
+  { id: 17, name: "Grand Vitara", brand: "Maruti Suzuki", type: "suv", category: "SUV", price: 3300, fuel: "Petrol", seats: 5, trans: "Manual", emoji: "SUV", img: "/assets/grandvitara.jpg" },
+  { id: 18, name: "Fortuner", brand: "Toyota", type: "suv", category: "SUV", price: 9000, fuel: "Diesel", seats: 7, trans: "Auto", emoji: "SUV", img: "/assets/fortunercloseup.jpg" },
 ];
 
 const termCommands: Record<string, () => string[]> = {
@@ -300,7 +302,7 @@ export default function Home() {
             </button>
           </div>
           <div className="hero-stats">
-            <div><div className="stat-num">16</div><div className="stat-label">Cars Available</div></div>
+            <div><div className="stat-num">30+</div><div className="stat-label">Cars Available</div></div>
             <div><div className="stat-num">1</div><div className="stat-label">City Hub</div></div>
             <div><div className="stat-num">4.9★</div><div className="stat-label">Avg Rating</div></div>
           </div>
