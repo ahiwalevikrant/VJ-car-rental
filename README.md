@@ -1,6 +1,6 @@
 # VJ Car Rental
 
-Next.js static site configured for GitHub Pages.
+Next.js static site configured for GitHub Pages with a custom domain.
 
 ## Deploy to GitHub Pages
 
@@ -11,8 +11,12 @@ Next.js static site configured for GitHub Pages.
 5. After workflow finishes, site is live at:
 
 ```text
-https://<your-github-username>.github.io/<repository-name>/
+https://vjcarsrental.in/
 ```
+
+This custom-domain deployment builds assets from the domain root. If you deploy
+to a GitHub project URL such as `https://<user>.github.io/<repo>/`, set
+`NEXT_PUBLIC_BASE_PATH` to `/<repo>` in the GitHub Actions build environment.
 
 ## Local Checks
 
@@ -26,7 +30,6 @@ Test same static export locally:
 
 ```powershell
 $env:GITHUB_PAGES="true"
-$env:NEXT_PUBLIC_BASE_PATH="/VJ-car-rental"
 npm run build
 ```
 
