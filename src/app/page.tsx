@@ -224,7 +224,7 @@ export default function Home() {
     <>
       {/* Loader */}
       <div className="page-loader" ref={loaderRef}>
-        <div className="loader-logo">VJ CARS RENTAL</div>
+        <div className="loader-logo">VJ RENTAL</div>
         <div className="loader-bar"><div className="loader-progress"></div></div>
         <div className="loader-text">LOADING YOUR RIDE...</div>
       </div>
@@ -233,7 +233,7 @@ export default function Home() {
       <nav id="navbar">
         <div className="logo">
           <div className="logo-dot"></div>
-          VJ CARS RENTAL
+          VJ RENTAL
         </div>
         <ul className="nav-links">
           <li><a href="#fleet">Fleet</a></li>
